@@ -52,7 +52,7 @@ public class GeneticAlgorithm_TSP
                 child_chromosone.set(current_gene, gene);
             }
         }
-        System.out.println(child_chromosone);
+
 
 
         return new Individual<>(child_chromosone, calcFitnessScore(child_chromosone));
@@ -88,7 +88,6 @@ public class GeneticAlgorithm_TSP
             Individual<Integer> indiv = new Individual<>(
                     chromosome, calcFitnessScore(chromosome));
             population.add(indiv);
-            System.out.println(indiv);
         }
         return population;
     }
@@ -97,7 +96,7 @@ public class GeneticAlgorithm_TSP
         int MAX_GEN = 200;
         double MUTATION_RATE = 0.05;
         int POPULATION_SIZE = 1000;
-        int NUM_CITES = 5; //choose from 5, 6, 17, 26
+        int NUM_CITES = 17; //choose from 5, 6, 17, 26
         double ELITISM = 0.2;
         System.out.printf("Max Gen: %s%nMutation Rate: %s%nPopulation Size: %s%nNumber of cities: %s%n", MAX_GEN, MUTATION_RATE, POPULATION_SIZE, NUM_CITES);
 

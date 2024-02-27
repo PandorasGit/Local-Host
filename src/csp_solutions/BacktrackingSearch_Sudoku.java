@@ -4,6 +4,8 @@ import core_algorithms.BacktrackingSearch;
 import csp_problems.*;
 import csp_problems.CSPProblem.Variable;
 
+import java.util.List;
+
 
 public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer>{
 
@@ -19,7 +21,15 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
      * @return true if the tail has been revised (lost some values), false otherwise
      */
     public boolean revise(String head, String tail) {
-        //TODO
+        List<Integer> tailDomain = getAllVariables().get(tail).domain();
+        for (int piece: tailDomain){
+            if (!getAllVariables().get(head).domain().contains(piece)){
+                getAllVariables().get(tail).domain().remove(piece);
+            }
+        }
+        if (tailDomain == getAllVariables().get(tail).domain()){
+            return false;
+        } else {    return true;    }
     }
 
     /**

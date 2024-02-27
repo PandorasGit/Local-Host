@@ -32,16 +32,27 @@ public class GeneticAlgorithm_TSP
             Individual<Integer> p1, Individual<Integer> p2) {
         System.out.println("Reproducing...");
         List<Integer> child_chromosone = new ArrayList<>(p1.getChromosome().size());
+        while(child_chromosone.size() < p1.getChromosome().size()){
+            child_chromosone.add(9999999);
+        }
         int sequence_first_index = new Random().nextInt(0, p1.getChromosome().size()-1);
         int sequence_last_index = new Random().nextInt(sequence_first_index, p1.getChromosome().size()-1);
         for (int gene=sequence_first_index; gene<=sequence_last_index; gene++){
             child_chromosone.set(gene, p1.getChromosome().get(gene));
         }
-        for (int gene=0; gene<p2.getChromosome().size(); gene++){
-            if (child_chromosone.get(gene) == null && !child_chromosone.contains(p2.getChromosome().get(gene))){
-                child_chromosone.set(gene, p2.getChromosome().get(gene));
+
+        System.out.println(p2.getChromosome());
+        System.out.println(child_chromosone);
+        for (int gene : p2.getChromosome()){
+            if(!child_chromosone.contains(gene)){
+                int current_gene = 0;
+                while(child_chromosone.get(current_gene) != 9999999){
+                    current_gene += 1;
+                }
+                child_chromosone.set(current_gene, gene);
             }
         }
+        System.out.println(child_chromosone);
 
 
         return new Individual<>(child_chromosone, calcFitnessScore(child_chromosone));
@@ -77,6 +88,7 @@ public class GeneticAlgorithm_TSP
             Individual<Integer> indiv = new Individual<>(
                     chromosome, calcFitnessScore(chromosome));
             population.add(indiv);
+            System.out.println(indiv);
         }
         return population;
     }
@@ -87,6 +99,7 @@ public class GeneticAlgorithm_TSP
         int POPULATION_SIZE = 1000;
         int NUM_CITES = 5; //choose from 5, 6, 17, 26
         double ELITISM = 0.2;
+        System.out.printf("Max Gen: %s%nMutation Rate: %s%nPopulation Size: %s%nNumber of cities: %s%n", MAX_GEN, MUTATION_RATE, POPULATION_SIZE, NUM_CITES);
 
         TSP problem = new TSP(NUM_CITES);
 

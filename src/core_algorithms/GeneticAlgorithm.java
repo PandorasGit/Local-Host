@@ -83,9 +83,13 @@ public abstract class GeneticAlgorithm<G> {
     //optional, select a parent that's not p.
     public Individual<G> selectAParent(
             List<Individual<G>> population, Individual<G> p){
-        Individual<G> newParent = selectAParent(population);
+        int random = new Random().nextInt(0, population.size()-1);
+        Individual<G> newParent = population.get(random);
         while (newParent == p){
-            newParent = selectAParent(population);
+            random = new Random().nextInt(0, population.size()-1);
+            newParent = population.get(random);
+            System.out.println(newParent);
+            System.out.println("Selecting a parent");
         }
         return newParent;
     }

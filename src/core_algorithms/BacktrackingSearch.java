@@ -71,6 +71,7 @@ public abstract class BacktrackingSearch <X, V> {
     public boolean AC3(Queue<Arc<X>> arcs){
 
         while(!arcs.isEmpty()){
+            System.out.println(arcs);
             Arc<X> removed = arcs.remove();
             X head = removed.head();
             X tail = removed.tail();

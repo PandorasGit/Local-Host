@@ -20,8 +20,8 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
      * @return true if the tail has been revised (lost some values), false otherwise
      */
     public boolean revise(String head, String tail) {
-        List<Integer> tailDomain = getAllVariables().get(tail).domain();
-        for (int piece: tailDomain){
+        List<Integer> tailDomain = List.copyOf(getAllVariables().get(tail).domain());
+        for (Object piece: tailDomain){
             if (!getAllVariables().get(head).domain().contains(piece)){
                 getAllVariables().get(tail).domain().remove(piece);
             }

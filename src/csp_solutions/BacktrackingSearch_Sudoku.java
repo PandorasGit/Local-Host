@@ -2,7 +2,6 @@ package csp_solutions;
 
 import core_algorithms.BacktrackingSearch;
 import csp_problems.*;
-import csp_problems.CSPProblem.Variable;
 
 import java.util.List;
 
@@ -27,9 +26,7 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
                 getAllVariables().get(tail).domain().remove(piece);
             }
         }
-        if (tailDomain == getAllVariables().get(tail).domain()){
-            return false;
-        } else {    return true;    }
+        return tailDomain != getAllVariables().get(tail).domain();
     }
 
     /**
@@ -38,7 +35,17 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
      *         null if all variables have been assigned
      */
     public String selectUnassigned(){
-        //TODO
+        String var = null;
+        for (String variable: getAllVariables().keySet()){
+            if (assigned(getAllVariables().get(variable).name())){
+                if (var != null){
+                    if (getAllVariables().get(variable).domain().size() < getAllVariables().get(var).domain().size()) {
+                        var = variable;
+                    }
+                } else {    var = variable;     }
+            }
+        }
+        return getAllVariables().get(var).name();
     }
 
     /**

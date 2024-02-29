@@ -74,7 +74,7 @@ public abstract class BacktrackingSearch <X, V> {
             Arc<X> removed = arcs.remove();
             X head = removed.head();
             X tail = removed.tail();
-            if(revise(removed.head(), tail)){
+            if(revise(head, tail)){
                 if (problem.getAllVariables().get(tail).domain().isEmpty()){
                     return false;
                 }
@@ -82,10 +82,10 @@ public abstract class BacktrackingSearch <X, V> {
                     for (X new_tail : problem.getNeighborsOf(tail)) {
                         arcs.add(new Arc<>(new_tail, tail));
                     }
-                    return true;
                 }
             }
         }
+        return true;
     }
 
     /**

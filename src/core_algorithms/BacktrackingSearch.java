@@ -71,18 +71,13 @@ public abstract class BacktrackingSearch <X, V> {
     public boolean AC3(Queue<Arc<X>> arcs){
 
         while(!arcs.isEmpty()){
-            System.out.println(arcs);
+
             Arc<X> removed = arcs.remove();
             X head = removed.head();
             X tail = removed.tail();
             if(revise(head, tail)){
-                if (problem.getAllVariables().get(tail).domain().isEmpty()){
-                    return false;
-                }
-                else{
-                    for (X new_tail : problem.getNeighborsOf(tail)) {
-                        arcs.add(new Arc<>(new_tail, tail));
-                    }
+                for (X new_tail : problem.getNeighborsOf(tail)) {
+                    arcs.add(new Arc<>(tail, new_tail));
                 }
             }
         }
@@ -95,7 +90,6 @@ public abstract class BacktrackingSearch <X, V> {
      * @return
      */
     public boolean initAC3(){
-        //TODO: create a queue that contains all the arcs; call AC3() with this queue.
         Queue<Arc<X>> arcs = new LinkedList<>();
         for(X v : allVariables.keySet()){
             for(X n : problem.getNeighborsOf(v)){
@@ -111,6 +105,7 @@ public abstract class BacktrackingSearch <X, V> {
      */
     public boolean search(){
         X n = selectUnassigned();
+
         if(n == null){
             return true;
         }

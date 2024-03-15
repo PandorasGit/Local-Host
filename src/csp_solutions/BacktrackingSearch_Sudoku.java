@@ -38,7 +38,7 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
     public String selectUnassigned(){
         String var = null;
         for (String variable: getAllVariables().keySet()){
-            if (assigned(getAllVariables().get(variable).name())){
+            if (!assigned(variable)){
                 if (var != null){
                     if (getAllVariables().get(variable).domain().size() < getAllVariables().get(var).domain().size()) {
                         var = variable;
@@ -46,7 +46,7 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
                 } else {    var = variable;     }
             }
         }
-        return getAllVariables().get(var).name();
+        return var;
     }
 
     /**

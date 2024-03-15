@@ -21,10 +21,9 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
      */
     public boolean revise(String head, String tail) {
         Boolean removed = false;
-        List<Integer> tailDomain = List.copyOf(getAllVariables().get(tail).domain());
-        for (Integer piece: tailDomain){
-            if (!getAllVariables().get(head).domain().contains(piece)){
-                getAllVariables().get(tail).domain().remove(piece);
+        if (getAllVariables().get(head).domain().size() == 1){
+            if (getAllVariables().get(tail).domain().contains(getAllVariables().get(head).domain().get(0))) {
+                getAllVariables().get(tail).domain().remove(getAllVariables().get(head).domain().get(0));
                 removed = true;
             }
         }
@@ -54,7 +53,7 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
      * @param args (no command-line argument is needed to run this program)
      */
     public static void main(String[] args) {
-        String filename = "./SudokuTestCases/TestCase3.txt";
+        String filename = "./SudokuTestCases/TestCase1.txt";
         Sudoku problem = new Sudoku(filename);
         BacktrackingSearch_Sudoku agent = new BacktrackingSearch_Sudoku(problem);
         System.out.println("loading puzzle from " + filename + "...");
@@ -64,6 +63,7 @@ public class BacktrackingSearch_Sudoku extends BacktrackingSearch<String,Integer
             problem.printPuzzle(agent.getAllVariables());
         }else{
             System.out.println("Unable to find a solution.");
+            problem.printPuzzle(problem.getAllVariables());
         }
     }
 }
